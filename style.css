@@ -1,0 +1,518 @@
+body {
+  background-color: black;
+}
+.switch {
+  display: block;
+  background-color: black;
+  width: 150px;
+  height: 195px;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2), 0 0 1px 2px black,
+    inset 0 2px 2px -2px white, inset 0 0 2px 15px #47434c,
+    inset 0 0 2px 22px black;
+  border-radius: 5px;
+  padding: 20px;
+  perspective: 700px;
+}
+
+.switch input {
+  display: none;
+}
+
+.switch input:checked + .button {
+  transform: translateZ(20px) rotateX(25deg);
+  box-shadow: 0 -10px 20px #ff1818;
+}
+
+.switch input:checked + .button .light {
+  animation: flicker 0.2s infinite 0.3s;
+}
+
+.switch input:checked + .button .shine {
+  opacity: 1;
+}
+
+.switch input:checked + .button .shadow {
+  opacity: 0;
+}
+
+.switch .button {
+  display: block;
+  transition: all 0.3s cubic-bezier(1, 0, 1, 1);
+  transform-origin: center center -20px;
+  transform: translateZ(20px) rotateX(-25deg);
+  transform-style: preserve-3d;
+  background-color: #9b0621;
+  height: 100%;
+  position: relative;
+  cursor: pointer;
+  background: linear-gradient(
+    #980000 0%,
+    #6f0000 30%,
+    #6f0000 70%,
+    #980000 100%
+  );
+  background-repeat: no-repeat;
+}
+
+.switch .button::before {
+  content: "";
+  background: linear-gradient(
+        rgba(255, 255, 255, 0.8) 10%,
+        rgba(255, 255, 255, 0.3) 30%,
+        #650000 75%,
+        #320000
+      )
+      50% 50%/97% 97%,
+    #b10000;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 50px;
+  transform-origin: top;
+  transform: rotateX(-90deg);
+  position: absolute;
+  top: 0;
+}
+
+.switch .button::after {
+  content: "";
+  background-image: linear-gradient(#650000, #320000);
+  width: 100%;
+  height: 50px;
+  transform-origin: top;
+  transform: translateY(50px) rotateX(-90deg);
+  position: absolute;
+  bottom: 0;
+  box-shadow: 0 50px 8px 0px black, 0 80px 20px 0px rgba(0, 0, 0, 0.5);
+}
+
+.switch .light {
+  opacity: 0;
+  animation: light-off 1s;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(#ffc97e, #ff1818 40%, transparent 70%);
+}
+
+.switch .dots {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(transparent 30%, rgba(101, 0, 0, 0.7) 70%);
+  background-size: 10px 10px;
+}
+
+.switch .characters {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(white, white) 50% 20%/5% 20%,
+    radial-gradient(
+        circle,
+        transparent 50%,
+        white 52%,
+        white 70%,
+        transparent 72%
+      )
+      50% 80%/33% 25%;
+  background-repeat: no-repeat;
+}
+
+.switch .shine {
+  transition: all 0.3s cubic-bezier(1, 0, 1, 1);
+  opacity: 0.3;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(white, transparent 3%) 50% 50%/97% 97%,
+    linear-gradient(
+        rgba(255, 255, 255, 0.5),
+        transparent 50%,
+        transparent 80%,
+        rgba(255, 255, 255, 0.5)
+      )
+      50% 50%/97% 97%;
+  background-repeat: no-repeat;
+}
+
+.switch .shadow {
+  transition: all 0.3s cubic-bezier(1, 0, 1, 1);
+  opacity: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(transparent 70%, rgba(0, 0, 0, 0.8));
+  background-repeat: no-repeat;
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes light-off {
+  0% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 0;
+  }
+}
+
+/* Second  */
+/* Switch starts here */
+.rocker {
+  display: inline-block;
+  position: relative;
+  /*
+  SIZE OF SWITCH
+  ==============
+  All sizes are in em - therefore
+  changing the font-size here
+  will change the size of the switch.
+  See .rocker-small below as example.
+  */
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  color: #888;
+  width: 7em;
+  height: 4em;
+  overflow: hidden;
+  border-bottom: 0.5em solid #eee;
+}
+
+.rocker-small {
+  font-size: 0.75em;
+  /* Sizes the switch */
+  margin: 1em;
+}
+
+.rocker::before {
+  content: "";
+  position: absolute;
+  top: 0.5em;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #999;
+  border: 0.5em solid #eee;
+  border-bottom: 0;
+}
+
+.rocker input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-left,
+.switch-right {
+  cursor: pointer;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5em;
+  width: 3em;
+  transition: 0.2s;
+  user-select: none;
+}
+
+.switch-left {
+  height: 2.4em;
+  width: 2.75em;
+  left: 0.85em;
+  bottom: 0.4em;
+  background-color: #ddd;
+  transform: rotate(15deg) skewX(15deg);
+}
+
+.switch-right {
+  right: 0.5em;
+  bottom: 0;
+  background-color: #bd5757;
+  color: #fff;
+}
+
+.switch-left::before,
+.switch-right::before {
+  content: "";
+  position: absolute;
+  width: 0.4em;
+  height: 2.45em;
+  bottom: -0.45em;
+  background-color: #ccc;
+  transform: skewY(-65deg);
+}
+
+.switch-left::before {
+  left: -0.4em;
+}
+
+.switch-right::before {
+  right: -0.375em;
+  background-color: transparent;
+  transform: skewY(65deg);
+}
+
+input:checked + .switch-left {
+  background-color: #0084d0;
+  color: #fff;
+  bottom: 0px;
+  left: 0.5em;
+  height: 2.5em;
+  width: 3em;
+  transform: rotate(0deg) skewX(0deg);
+}
+
+input:checked + .switch-left::before {
+  background-color: transparent;
+  width: 3.0833em;
+}
+
+input:checked + .switch-left + .switch-right {
+  background-color: #ddd;
+  color: #888;
+  bottom: 0.4em;
+  right: 0.8em;
+  height: 2.4em;
+  width: 2.75em;
+  transform: rotate(-15deg) skewX(-15deg);
+}
+
+input:checked + .switch-left + .switch-right::before {
+  background-color: #ccc;
+}
+
+/* Keyboard Users */
+input:focus + .switch-left {
+  color: #333;
+}
+
+input:checked:focus + .switch-left {
+  color: #fff;
+}
+
+input:focus + .switch-left + .switch-right {
+  color: #fff;
+}
+
+input:checked:focus + .switch-left + .switch-right {
+  color: #333;
+}
+
+/* Black */
+.container {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 1.2em;
+  display: grid;
+  gap: 2em;
+  place-content: center;
+  width: 400px;
+}
+
+.container input[type="radio"] {
+  display: none;
+}
+
+.input-btn:is(:checked) + .neon-btn .span {
+  inset: 2px;
+  background-color: #4090b5;
+  background: repeating-linear-gradient(
+      to bottom,
+      transparent 0%,
+      #4090b5 1px,
+      #4090b5 3px,
+      #4090b5 5px,
+      #4090b5 4px,
+      transparent 0.5%
+    ),
+    repeating-linear-gradient(
+      to left,
+      hsl(295, 60%, 12%) 100%,
+      hsl(295, 60%, 12%) 100%
+    );
+  box-shadow: inset 0 40px 20px hsl(296, 59%, 10%);
+}
+
+.input-btn:is(:checked) + .neon-btn .txt {
+  text-shadow: 2px 4px 1px #9e30a9, 2px 2px 1px #4090b5,
+    0 0 20px rgba(255, 255, 255, 0.616);
+  color: rgb(255, 255, 255);
+  animation: colorchange 0.3s ease;
+}
+
+.input-btn:is(:checked) + .neon-btn::before {
+  animation-duration: 0.6s;
+}
+
+.input-btn:is(:checked) + .neon-btn::after {
+  animation-duration: 0.6s;
+}
+
+.neon-btn {
+  width: 300px;
+  height: 60px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em 5em;
+  text-align: right;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+  transition: all 2s ease-in-out;
+  -webkit-clip-path: polygon(
+    6% 0,
+    93% 0,
+    100% 8%,
+    100% 86%,
+    90% 89%,
+    88% 100%,
+    5% 100%,
+    0% 85%
+  );
+  clip-path: polygon(
+    6% 0,
+    93% 0,
+    100% 8%,
+    100% 86%,
+    90% 89%,
+    88% 100%,
+    5% 100%,
+    0% 85%
+  );
+}
+
+.neon-btn .span {
+  display: flex;
+  -webkit-clip-path: polygon(
+    6% 0,
+    93% 0,
+    100% 8%,
+    100% 86%,
+    90% 89%,
+    88% 100%,
+    5% 100%,
+    0% 85%
+  );
+  clip-path: polygon(
+    6% 0,
+    93% 0,
+    100% 8%,
+    100% 86%,
+    90% 89%,
+    88% 100%,
+    5% 100%,
+    0% 85%
+  );
+  position: absolute;
+  inset: 1px;
+  background-color: #212121;
+  z-index: 1;
+}
+
+.neon-btn .txt {
+  text-align: right;
+  position: relative;
+  z-index: 2;
+  color: aliceblue;
+  font-size: 1em;
+  transition: all ease-in-out 2s linear;
+  text-shadow: 0px 0px 1px #4090b5, 0px 0px 1px #9e30a9, 0 0 1px white;
+}
+
+.neon-btn::before {
+  content: "";
+  position: absolute;
+  height: 300px;
+  aspect-ratio: 1.5/1;
+  box-shadow: -17px -19px 20px #9e30a9;
+  background-image: conic-gradient(
+    #9e30a9,
+    transparent,
+    transparent,
+    transparent,
+    transparent,
+    transparent,
+    transparent,
+    #9e30a9
+  );
+  animation: rotate 4s linear infinite -2s;
+}
+
+.neon-btn::after {
+  content: "";
+  position: absolute;
+  height: 300px;
+  aspect-ratio: 1.5/1;
+  box-shadow: -17px -19px 10px #4090b5;
+  background-image: conic-gradient(
+    #4090b5,
+    transparent,
+    transparent,
+    transparent,
+    transparent,
+    transparent,
+    transparent,
+    transparent,
+    #4090b5
+  );
+  animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes colorchange {
+  0% {
+    text-shadow: 0px 0px 0px #9e30a9, 0px 0px 0px #4090b5,
+      0 0 0px rgba(255, 255, 255, 0.616);
+  }
+
+  50% {
+    text-shadow: -6px 5px 1px #9e30a9, 5px 11px 1px #4090b5,
+      0 0 20px rgba(255, 255, 255, 0.616);
+  }
+
+  to {
+    text-shadow: 2px 4px 1px #9e30a9, 2px 2px 1px #4090b5,
+      0 0 20px rgba(255, 255, 255, 0.616);
+  }
+}
+
+@keyframes backgroundchange {
+  0% {
+    background-color: transparent;
+  }
+
+  50% {
+    background-color: #4090b5;
+  }
+
+  to {
+    background-color: transparent;
+  }
+}
